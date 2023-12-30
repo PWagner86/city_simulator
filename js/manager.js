@@ -1,25 +1,26 @@
+import { randMinMaxInt } from './utils/math.js';
 import Building from './classes/building.js';
 
 export default class Manager {
     constructor(ctx) {
         this.ctx = ctx;
+        this.canvas = this.ctx.canvas;
         this.buildings = [];
-        this.buildingCount = 10;
         this.citizens = [];
+        this.streets = [];
+        this.#addEventListeners();
     }
 
-    #setBuildings() {
-        for(let i = 0; i < this.buildingCount; i++) {
-            const randomX = Math.floor(Math.random() * this.ctx.canvas.width - 50);
-            const randomY = Math.floor(Math.random() * this.ctx.canvas.height - 50);
-            this.buildings.push(new Building(randomX, randomY));
-        }
+    #addEventListeners() {
+        this.canvas.addEventListener("click", e => this.addBuilding(e.offsetX, e.offsetY));
+    }
+
+    addBuilding(x, y) {
+        const randWidth = randMinMaxInt(20, 100);
+        const randHeight = randMinMaxInt(20, 100);
+        const building = new Building(x, y, randWidth, randHeight);
+        building.draw(this.ctx);
+        this.buildings.push(building);
         console.log(this.buildings);
     }
-
-    draw() {
-        this.#setBuildings();
-        this.buildings.forEach(building => building.draw(this.ctx));
-    }
-
 }

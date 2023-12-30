@@ -1,13 +1,13 @@
 export default class Building {
-    constructor(x, y, width = 10, length = 10) {
+    constructor(x, y, width, height) {
         this.x = x;
         this.y = y;
         this.width = width;
-        this.length = length;
+        this.height = height;
     }
 
-    draw(ctx, color = "black") {
-        ctx.fillStyle = color;
-        ctx.fillRect(this.x, this.y, this.width, this.length);
+    draw(ctx) {
+        ctx.fillRect(this.x, this.y, this.width, this.height);
     }
+
 }
